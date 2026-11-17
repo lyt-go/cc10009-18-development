@@ -33,3 +33,17 @@ body { margin: 0; background: #f6f8fb; color: #1f2937; }
 .link { border: none; background: none; color: var(--brand); cursor: pointer; padding: 0; }
 .page-foot { display: flex; justify-content: space-between; margin-top: 8px; font-size: 12px; color: var(--muted); }
 .error-text { color: #b42318; }
+
+/* 渲染结果 / 队列状态 / 调度落点 */
+.tab-bar { display: flex; gap: 6px; margin: 4px 0 12px; border-bottom: 1px solid var(--border); }
+.tab { border: 1px solid transparent; border-bottom: none; background: transparent; padding: 7px 14px; border-radius: 6px 6px 0 0; cursor: pointer; color: var(--muted); font-size: 13px; }
+.tab.active { background: #fff; border-color: var(--border); color: var(--brand); font-weight: 600; }
+.notice-text { color: #15803d; }
+.detail-panel { margin-top: 12px; background: #fff; border: 1px solid var(--border); border-radius: 8px; padding: 12px 14px; }
+.detail-head { display: flex; justify-content: space-between; align-items: center; }
+.detail-head h3 { font-size: 14px; margin: 0 0 8px; }
+.detail-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; }
+.detail-grid h4 { font-size: 13px; margin: 0 0 6px; color: var(--muted); }
+.detail-list { margin: 0 0 8px; padding-left: 18px; font-size: 13px; line-height: 1.7; }
+.muted { color: var(--muted); }
+.detail-json { background: #f6f8fb; border: 1px solid var(--border); border-radius: 6px; padding: 8px; font-size: 12px; max-height: 220px; overflow: auto; }

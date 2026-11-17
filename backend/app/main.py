@@ -10,7 +10,10 @@ from fastapi.middleware.cors import CORSMiddleware
 
 from app.config import settings
 from app.routers import ROUTERS
+from app.routers.rendertask import landing_router, queue_router, results_router
 from app.store import store
+
+RENDER_ROUTERS = [results_router, queue_router, landing_router]
 
 app = FastAPI(title="分布式网页抓取调度平台", version="1.0.0")
 
@@ -24,6 +27,10 @@ app.add_middleware(
 
 for module in ROUTERS:
     app.include_router(module.router)
+
+# 渲染链路额外暴露的三个数据集路由（渲染结果、队列状态、调度落点）。
+for extra_router in RENDER_ROUTERS:
+    app.include_router(extra_router)
 
 
 @app.get("/api/health")

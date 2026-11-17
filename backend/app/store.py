@@ -4,16 +4,25 @@
 """
 from __future__ import annotations
 
+import copy
 from typing import Any
 
 from app.seed import SEED_ROWS
+from app.seed_render import RENDER_SEED_ROWS
+
+
+def _all_seed_rows() -> dict[str, list[dict[str, Any]]]:
+    tables: dict[str, list[dict[str, Any]]] = {
+        name: copy.deepcopy(rows) for name, rows in SEED_ROWS.items()
+    }
+    for name, rows in RENDER_SEED_ROWS.items():
+        tables[name] = copy.deepcopy(rows)
+    return tables
 
 
 class Store:
     def __init__(self) -> None:
-        self._tables: dict[str, list[dict[str, Any]]] = {
-            name: [dict(row) for row in rows] for name, rows in SEED_ROWS.items()
-        }
+        self._tables: dict[str, list[dict[str, Any]]] = _all_seed_rows()
 
     def module_names(self) -> list[str]:
         return sorted(self._tables)
@@ -26,6 +35,10 @@ class Store:
             if int(row.get("id", 0)) == entry_id:
                 return row
         return None
+
+    def reset(self) -> None:
+        """恢复示例数据：测试与演示脚本用，避免上一次操作污染下一次。"""
+        self._tables = _all_seed_rows()
 
     def overview(self) -> dict[str, object]:
         modules: list[dict[str, object]] = []
